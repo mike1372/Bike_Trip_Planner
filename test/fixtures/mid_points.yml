@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  mid_lat: 1.5
+  mid_long: 1.5
+  bike_routes.id: MyString
+
+two:
+  mid_lat: 1.5
+  mid_long: 1.5
+  bike_routes.id: MyString

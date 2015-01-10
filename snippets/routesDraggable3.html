@@ -1,0 +1,165 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Draggable directions</title>
+    <style>
+      html, body, #google-map {
+        height: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <script>
+cc = function(a){console.log(a)}
+
+
+var rendererOptions = {
+  draggable: true,
+    polylineOptions: {
+        strokeColor: "#FF0000"//change color of line
+    }
+};
+var directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);;
+var directionsService = new google.maps.DirectionsService();
+var map;
+
+var australia = new google.maps.LatLng(-25.274398, 133.775136);
+var melbourne = new google.maps.LatLng(-37.814198, 144.963446);
+
+function initialize() {
+
+  var mapOptions = {
+    zoom: 7,
+    center: melbourne
+  };
+  map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
+  directionsDisplay.setMap(map);
+  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+
+  google.maps.event.addListener(directionsDisplay, 'directions_changed', function() {
+    computeTotalDistance(directionsDisplay.getDirections());
+  });
+
+  calcRoute();
+}
+
+function calcRoute() {
+
+  //draw circle:
+  new google.maps.Circle( {
+       strokeColor: "#ff0000",
+       strokeOpacity: 0.8,
+       strokeWeight: 1,
+       fillColor: "#ff0000",
+       fillOpacity: 0.20,
+       map: map,
+       center: melbourne,
+       radius: 16090*2
+   });
+//draw circle
+  var request = {
+    origin: 'Sydney, NSW',
+    destination: 'Melbourne , VIC',
+    // waypoints:[{location: 'Bourke, NSW'}, {location: 'Broken Hill, NSW'}],
+    travelMode: google.maps.TravelMode.DRIVING,
+    provideRouteAlternatives: true
+  };
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK)
+        directionsDisplay.setDirections(response);
+      cc(response.routes)
+  });
+
+
+   stepDisplay = new google.maps.InfoWindow();
+  // Route the directions and pass the response to a
+  // function to create markers for each step.
+  directionsService.route(request, function(response, status) {
+    if (status == google.maps.DirectionsStatus.OK) {
+
+      directionsDisplay.setDirections(response);
+      showSteps(response);
+    }
+  });
+
+
+
+}
+
+function computeTotalDistance(result) {
+  var total = 0;
+  var myroute = result.routes[0];
+  for (var i = 0; i < myroute.legs.length; i++) {
+    total += myroute.legs[i].distance.value;
+  }
+
+  total = total / 1000.0;
+  document.getElementById('total').innerHTML = total + ' km';
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+
+
+
+
+
+
+
+
+  geocoder = new google.maps.Geocoder();
+  geocoder.geocode({address:start}, function(results, status){
+    if (status == google.maps.GeocoderStatus.OK) {
+      var lat1 = results[0].geometry.location.lat()
+        , lng1 = results[0].geometry.location.lng();
+      //Now geocode end address
+      geocoder.geocode({address:end}, function(results, status){
+        if (status == google.maps.GeocoderStatus.OK) {
+          var lat2 = results[0].geometry.location.lat()
+            , lng2 = results[0].geometry.location.lng();
+          //Now move along
+          if(checkBounds(lat1,lng1,lat2,lng2)){
+            // Draw 3 paths, one for each safety level for desktop, for mobile, only draw one
+            if(!mobile){
+              drawpath(lat1, lng1, lat2, lng2, hill, "low", true);
+              drawpath(lat1, lng1, lat2, lng2, hill, "medium", true);
+              drawpath(lat1, lng1, lat2, lng2, hill, "high", true);
+            } else {
+              drawpath(lat1, lng1, lat2, lng2, hill, safety, true);
+            }
+
+            map.panTo(new google.maps.LatLng((lat1+lat2)/2,(lng1+lng2)/2));
+
+            if(mobile){
+              $.mobile.changePage($('#map'),"slide");
+            }
+
+          } else {
+            alert("Bikemapper currently only works in the Bay Area.  Try making your addresses more specific by adding city and state names.");
+          }
+        } else {
+          alert(end + " not found");
+          return false;
+        }
+      });
+    } else {
+      alert(start + " not found");
+      return false;
+    }
+  });
+
+
+    </script>
+  </head>
+  <body>
+    <div id="google-map" style="float:left;width:70%; height:100%"></div>
+    <div id="directionsPanel" style="float:right;width:30%;height 100%">
+    <p>Total Distance: <span id="total"></span></p>
+    </div>
+  </body>
+</html>
