@@ -2,11 +2,11 @@
 	<div class="banner">Bike Trip Planner</div>
   <div id="google-map-panel">
   	<div class="A">
-			<span class="circle-red">A</span>
+			<span id="circle-red">A</span>
 			<input id="start" class="input-boxes" type="text" value="20 Queen Street, Melbourne, Victoria, Australia" placeholder="Start: ">
   	</div>
   	<div class="B">
-  		<span class="circle-green">B</span>
+  		<span id="circle-green">B</span>
       <input id="end" class="input-boxes" type="text" value="101 Collins Street, Melbourne, Victoria, Australia" placeholder="End: ">
   	</div>
       <button id="go" class="buttonArrows">Find My Route</button>
@@ -29,19 +29,22 @@
 
 		  <div class="threeD-Map-output">
 			  <div id="travel-distance">
-			      Distance:
+			      <span>Distance</span>
+			      <i class="fa fa-arrows-h"></i>
 			      <span id="distance" class="canvas-data"></span>
 			  </div>
 			  <div>
-			      Travel Time:
+			      <span>Time</span>
+			      <i class="fa fa-clock-o"></i>
 			      <span id="travel-time" class="canvas-data"></span>
 			  </div>
 			  <div>
-			      Uphill total:
+			      <span>Climb</span>			     <i class="fa fa-long-arrow-up"></i>
 			      <span id="climb" class="canvas-data"></span>
 			  </div>
 			  <div>
-			      Downhill:
+			      <span>Descent</span>
+			      <i class="fa fa-long-arrow-down"></i>
 			   <span id="descent" class="canvas-data"></span>
 			  </div>
 		  </div>

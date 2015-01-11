@@ -62,7 +62,7 @@ var setWayPoints = function(dbRouteData) {
     cc("dbRouteData: " + dbRouteData);
     if (dbRouteData === []) {
         // leave wayPointsArray = [] to run google routing to obtain the start and end coordinates
-        cc("len " +dbRouteData.length);
+        cc("len " + dbRouteData.length);
     } else {
 
         if (dbRouteData.length === 2) {
@@ -231,23 +231,15 @@ var drawPolyline = function(elevations, slopes) {
             elevations[i + 1].location
         ];
 
-        var currrentSlope = slopes[i].slope;
-        if (currrentSlope >= 0 && currrentSlope <= 4) {
-            pathColor = "#00FF00";
-            upHill += elevations[i + 1].elevation - elevations[i].elevation;
-        } else if (currrentSlope > 4 && currrentSlope <= 8) {
-            pathColor = "yellow";
-            upHill += elevations[i + 1].elevation - elevations[i].elevation;
-        } else if (currrentSlope > 8 && currrentSlope <= 12) {
-            pathColor = "orange";
-            upHill += elevations[i + 1].elevation - elevations[i].elevation;
-        } else if (currrentSlope > 12 && currrentSlope <= 20) {
-            pathColor = "red";
-            upHill += elevations[i + 1].elevation - elevations[i].elevation;
+        var slope = slopes[i].slope;
+        var current = elevations[i].elevation
+        var next = elevations[i + 1].elevation;
+        if (slope > 0) {
+            upHill += next - current;
         } else {
-            pathColor = "#0099CC";
-            downHill += elevations[i].elevation - elevations[i + 1].elevation;
+            downHill += current - next;
         }
+        pathColor = slopeColor(slope)
         mapPath = new google.maps.Polyline({
             path: routePath,
             strokeColor: pathColor,
@@ -295,6 +287,10 @@ var getURLParameter = function(name) {
 document.getElementById("go").addEventListener(
     'click',
     function(evt) {
+        c.width = Math.round(innerWidth*0.85) ;
+        // c.height= innerHeight - inninnerHeight*0.12;
+        //centerX = c.width / 2,
+        //centerY = c.height / 2,
         evt.preventDefault();
         calcRoute(wayPointsArray);
     });
