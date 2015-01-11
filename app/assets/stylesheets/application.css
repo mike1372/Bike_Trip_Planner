@@ -13,6 +13,7 @@
  *= require_tree .
  *= require_self
  */
+/*----Mobile----*/
 
 html, body {
     font-family: 'Open Sans', sans-serif;
@@ -29,11 +30,31 @@ html, body {
     font-family: Verdana;
     font-size: 3em;
 }
-/*map button & directions */
+/*Input boxes*/
+.input-boxes {
+    font-size: 2em;
+}
+.circle-red, .circle-green {
+    padding: 2%;
+    text-align: center;
+    color: white;
+}
+.circle-red {
+    background: #b30707;
+}
+.circle-green {
+    background: #339933;
+}
+
 #go, #start, #end {
     height: 2.3em;
-    width: 100%;
+    width: 92%;
 }
+#go {
+    margin-left: 2%;
+}
+/*map button & directions */
+
 #google-map-panel {
     margin: 2% 2% 2% 5%;
     width: 90%;
@@ -50,8 +71,6 @@ canvas {
 #threeD-Map {
     top: 0;
     right: 0;
-    width: 90%;
-    height: 50%;
     margin: 2% 2% 2% 5%;
     border: solid black 5px;
 }
@@ -61,7 +80,8 @@ canvas {
     transform: rotate(-180deg);
 }
 /*canvas buttons*/
-button .buttonArrows{
+
+button .buttonArrows {
     width: 4em;
     height: 4em;
     margin-left: calc((88% - 24em)/12);
@@ -81,18 +101,10 @@ button .buttonArrows{
     margin: 0% 0% 0% 5%;
     border: solid green 5px;
 }
-.controls {
-    width: 40%;
-    height: 100%;
-}
-.textright {
+.canvas-data {
     text-align: right;
 }
-/*#menuButton {
-    font-size: 2em;
-    height: 3em;
-    width: 3em;
-}*/
+/*----Desktop----*/
 
 @media all and (min-width: 1000px) {
     .banner {
@@ -103,7 +115,10 @@ button .buttonArrows{
     }
     /*directions button*/
     
-    button .buttonArrows{
+    .controls {
+        font-size: 1em;
+    }
+    button .buttonArrows {
         width: 4em;
         height: 2em;
     }
@@ -126,16 +141,13 @@ button .buttonArrows{
         display: inline-block;
     }
     #threeD-Map {
-        width: 42%;
-        height: 60%;
         margin: 2% 5% 0% 2%;
         display: inline-block;
     }
     .threeD-Map-button-panel {
-    width: 40%;
-    /*text-align: right;*/
-    margin: 2% 2% 2% 5%;
-}
+        width: 40%;
+        margin: 2% 2% 2% 5%;
+    }
 }
 /* Smartphones (portrait and landscape) ----------- */
 

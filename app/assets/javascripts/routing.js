@@ -62,7 +62,7 @@ var setWayPoints = function(dbRouteData) {
     cc("dbRouteData: " + dbRouteData);
     if (dbRouteData === []) {
         // leave wayPointsArray = [] to run google routing to obtain the start and end coordinates
-
+        cc("len " +dbRouteData.length);
     } else {
 
         if (dbRouteData.length === 2) {
@@ -96,7 +96,7 @@ var calcRoute = function(wayPointsArray) {
     };
 
     cc(directionsService);
-    cc("calcRoute-way ", wayPointsArray);
+    console.log("calcRoute-way ", wayPointsArray);
 
     directionsService.route(request, function(response, status) {
         if (status === "OK") {
@@ -115,10 +115,11 @@ var calcRoute = function(wayPointsArray) {
 
 // obtains the safer (desired) bike route from our database of predefined and if in range returns the lat,longs
 var getRoute = function() {
+    console.log(googleResponse);
     var startlat = googleResponse.routes[0].legs[0].start_location.k
-    var startlong = googleResponse.routes[0].legs[0].start_location.B
+    var startlong = googleResponse.routes[0].legs[0].start_location.D
     var endlat = googleResponse.routes[0].legs[0].end_location.k
-    var endlong = googleResponse.routes[0].legs[0].end_location.B
+    var endlong = googleResponse.routes[0].legs[0].end_location.D
 
     var fetchBikeRoute = function(startlat, startlong, endlat, endlong) {
         $.ajax({

@@ -1,14 +1,20 @@
 <div id="wrapper">
 	<div class="banner">Bike Trip Planner</div>
   <div id="google-map-panel">
-  		<input id="start" class="controls" type="text" value="20 Queen Street, Melbourne, Victoria, Australia" placeholder="Start: ">
-      <input id="end" class="controls" type="text" value="101 Collins Street, Melbourne, Victoria, Australia" placeholder="End: ">
+  	<div class="A">
+			<span class="circle-red">A</span>
+			<input id="start" class="input-boxes" type="text" value="20 Queen Street, Melbourne, Victoria, Australia" placeholder="Start: ">
+  	</div>
+  	<div class="B">
+  		<span class="circle-green">B</span>
+      <input id="end" class="input-boxes" type="text" value="101 Collins Street, Melbourne, Victoria, Australia" placeholder="End: ">
+  	</div>
       <button id="go" class="buttonArrows">Find My Route</button>
   </div>
 	<div id="google-map"></div>
 	  <!-- html slope canvas and gui -->
 	  <div id="threeD-Map" class="medium">
-	    <canvas ></canvas>
+	    <canvas id="c"></canvas>
 	    <!-- ➜ -->
 			<div class="threeD-Map-button-panel">
 			  <button class="buttonArrows" id="left">←</button>
@@ -24,19 +30,19 @@
 		  <div class="threeD-Map-output">
 			  <div id="travel-distance">
 			      Distance:
-			      <span id="distance" class="textright"></span>
+			      <span id="distance" class="canvas-data"></span>
 			  </div>
 			  <div>
 			      Travel Time:
-			      <span id="travel-time" class="textright"></span>
+			      <span id="travel-time" class="canvas-data"></span>
 			  </div>
 			  <div>
 			      Uphill total:
-			      <span id="climb" class="textright"></span>
+			      <span id="climb" class="canvas-data"></span>
 			  </div>
 			  <div>
 			      Downhill:
-			   <span id="descent" class="textright"></span>
+			   <span id="descent" class="canvas-data"></span>
 			  </div>
 		  </div>
 	</div>

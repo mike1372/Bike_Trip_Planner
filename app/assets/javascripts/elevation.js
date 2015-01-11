@@ -110,6 +110,9 @@ var b   = document.body,
     c   = document.getElementById("c");
 // c.width = innerWidth*.4;
 // c.height= innerHeight*0.7;
+// c.width = document.getElementById("threeD-Map").width
+// cc("3D width");
+// cc(document.getElementById("threeD-Map").width);
 var t   = c.getContext("2d"),
 
     f   = 200,
@@ -131,7 +134,15 @@ var t   = c.getContext("2d"),
     zoomTarget= 1.6,
     previous,
     timer=0;
-function toggleTimer(){if(timer===0){timer = setInterval(main,0)}}
+function toggleTimer(){if(timer===0){
+  timer = setInterval(main,0);
+  // Change canvas width as screen is resized
+  c.width = innerWidth*0.5;
+  cc(c);
+  c.height= innerHeight*0.7;
+  // c.width = document.innerWidth;
+  // cc(c.width = document.getElementById("threeD-Map").style.width);
+}}
 $id( "right") .onclick = function(){targetAngle += π/4;toggleTimer()}
 $id( "left")  .onclick = function(){targetAngle -= π/4;toggleTimer()}
 $id( "up")    .onclick = function(){targetAngleUP += π/6;toggleTimer()}
