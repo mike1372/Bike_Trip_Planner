@@ -1,15 +1,19 @@
 <div id="wrapper">
-	<div class="banner">Bike Trip Planner</div>
+	<div class="banner">
+		<h1>Bike Trip Planner</h1>
+	</div>
   <div id="google-map-panel">
-  	<div class="A">
-			<span id="circle-red">A</span>
-			<input id="start" class="input-boxes" type="text" value="20 Queen Street, Melbourne, Victoria, Australia" placeholder="Start: ">
-  	</div>
-  	<div class="B">
-  		<span id="circle-green">B</span>
-      <input id="end" class="input-boxes" type="text" value="101 Collins Street, Melbourne, Victoria, Australia" placeholder="End: ">
-  	</div>
-      <button id="go" class="buttonArrows">Find My Route</button>
+	  <div class="start-end">
+	  	<div class="A">
+				<span id="circle-red">A</span>
+				<input id="start" class="input-boxes" type="text" value="20 Queen Street, Melbourne, Victoria, Australia" placeholder="Start: ">
+	  	</div>
+	  	<div class="B">
+	  		<span id="circle-green">B</span>
+	      <input id="end" class="input-boxes" type="text" value="101 Collins Street, Melbourne, Victoria, Australia" placeholder="End: ">
+	  	</div>
+	  </div>
+    <button id="go" class="buttonArrows">Find My Route</button>
   </div>
 	<div id="google-map"></div>
 	  <!-- html slope canvas and gui -->
@@ -17,35 +21,60 @@
 	    <canvas id="c"></canvas>
 	    <!-- ➜ -->
 			<div class="threeD-Map-button-panel">
-			  <button class="buttonArrows" id="left">←</button>
-			  <button class="buttonArrows" id="right">→</button>
+			  <button class="buttonArrows" id="left"><i class="fa fa-arrow-left"></i></button>
+			  <button class="buttonArrows" id="right"><i class="fa fa-arrow-right"></i></button>
 
-			  <button class="buttonArrows"  id="up">↑</button>
-			  <button class="buttonArrows"  id="down">↓</button>
+			  <button class="buttonArrows"  id="up"><i class="fa fa-arrow-up"></i></button>
+			  <button class="buttonArrows"  id="down"><i class="fa fa-arrow-down"></i></button>
 
-			  <button class="buttonArrows upsideDown" id="zoomIN">+☌</button>
-			  <button class="buttonArrows upsideDown"  id="zoomOUT">-☌</button>
+			  <button class="buttonArrows" id="zoomIN"><i class="fa fa-search-plus"></i></button>
+			  <button class="buttonArrows"  id="zoomOUT"><i class="fa fa-search-minus"></i></button>
 			</div>
 
 		  <div class="threeD-Map-output">
-			  <div id="travel-distance">
+			  <div class="outputs">
+		      <div class="col1">
 			      <span>Distance</span>
+		      </div>
+		      <div class="col2">
 			      <i class="fa fa-arrows-h"></i>
-			      <span id="distance" class="canvas-data"></span>
+		      </div>
+		      <div class="col3">
+		      	<span id="distance" class="canvas-data"></span>
+		      </div>
 			  </div>
-			  <div>
+			  <div class="outputs">
+			  	<div class="col1">
 			      <span>Time</span>
+			  	</div>
+			  	<div class="col2">
 			      <i class="fa fa-clock-o"></i>
-			      <span id="travel-time" class="canvas-data"></span>
+			  	</div>
+			  	<div class="col3">
+		      	<span id="travel-time" class="canvas-data"></span>
+			  	</div>
 			  </div>
-			  <div>
-			      <span>Climb</span>			     <i class="fa fa-long-arrow-up"></i>
+			  <div class="outputs">
+				  <div class="col1">
+			      <span>Climb</span>			     
+				  </div>
+				  <div class="col2">
+			      <i class="fa fa-long-arrow-up"></i>
+				  </div>
+				  <div class="col3">
 			      <span id="climb" class="canvas-data"></span>
-			  </div>
-			  <div>
+				  </div>
+	  		</div>
+			  <div class="outputs">
+		      <div class="col1">
 			      <span>Descent</span>
+		      </div>
+		      <div class="col2">
 			      <i class="fa fa-long-arrow-down"></i>
-			   <span id="descent" class="canvas-data"></span>
+		      </div>
+		      <div class="col3">
+		   			<span id="descent" class="canvas-data"></span>
+		      </div>
 			  </div>
 		  </div>
 	</div>

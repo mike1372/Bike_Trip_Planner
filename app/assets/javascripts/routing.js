@@ -195,13 +195,13 @@ var plotSlope = function(elevations, SAMPLESIZE) {
     cc(data8)
     planes = [createGrid(fnPlane), createSlope(normalize(data8))]
 
-    totalθ = 0,
-        totalφ = 0,
-        targetAngleUP = π * 7 / 6,
+    // totalθ = 0,
+    //     totalφ = 0,
+    //     targetAngleUP = π * 7 / 6,
 
-        targetAngle = 0,
-        zoom = 0.5,
-        zoomTarget = 1.6,
+    //     targetAngle = 0,
+    //     zoom = 0.5,
+    //     zoomTarget = 1.6,
 
         timer = setInterval(main, 0);
     cc("elevations, SAMPLESIZE:");
@@ -287,10 +287,19 @@ var getURLParameter = function(name) {
 document.getElementById("go").addEventListener(
     'click',
     function(evt) {
-        c.width = Math.round(innerWidth*0.85) ;
-        // c.height= innerHeight - inninnerHeight*0.12;
-        //centerX = c.width / 2,
-        //centerY = c.height / 2,
+        // cc("errrrrr")
+        document.getElementsByClassName("threeD-Map-button-panel")[0].style.opacity = 1; 
+        document.getElementsByClassName("threeD-Map-output")[0].style.opacity = 1;
+        // cc(Math.round( $id("threeD-Map").style.width))
+        c.width = parseFloat(window.getComputedStyle($id("threeD-Map")).width, 10) - 4;
+        // where 50px = height of 3D map button panel, 20 px top/bottom spacing, 55px = height of 3D map output
+        c.height= parseFloat(window.getComputedStyle($id("threeD-Map")).height, 10) -50 -20 -55 -25;
+        centerX = c.width / 2,
+        centerY = c.height / 2,
         evt.preventDefault();
+        
         calcRoute(wayPointsArray);
+        cc("zoom")
+        cc(zoom)
+
     });

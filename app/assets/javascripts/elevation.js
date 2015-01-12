@@ -158,8 +158,8 @@ function slopeColor(slope) {
 
 //-------------
 var c = document.getElementById("c");
-c.width = innerWidth*0.85;
-c.height = innerHeight*0.4 ;
+c.width = 10;//innerWidth*0.85;
+c.height = 10;//innerHeight*0.4 ;
 var t = c.getContext("2d"),
     f = 200,
     mX = 0,
@@ -172,23 +172,30 @@ var t = c.getContext("2d"),
     rnd = Math.round,
     centerX = c.width / 2,
     centerY = c.height / 2,
+
+    // initial values:
     totalθ = 0,
     totalφ = 0,
-    zoom = 10,
-    zoomTarget = 1.6,
-    previous,
-    /* counters for animation in x,y plane+zoom */
-    animationSteps = 20,
-    ix = 0,
-    iy = animationSteps,
-    izoom = animationSteps,
-    angleIncr = π / 6 / (animationSteps),
-    zoomIncr = 0.99,
-    xIncr = angleIncr,
-    yIncr = angleIncr * 8,
+    zoom = 1.2,
     timer = 0,
-    maxzoom = 5,
-    minzoom = 0.2;
+    maxzoom = 10,
+    minzoom = 0.5,
+
+    previous, // debug value used to get time in ms at start of timer step
+    // typical times for 1 frame of timer: mac:30ms, phone:150ms
+
+    /* counters for timer in x,y plane+zoom */
+    // length of timer in frames
+    ASteps = 40,
+    // timer step counter values
+    ix = 0,
+    iy = ASteps,
+    izoom = ASteps,
+    // actual increase in values each step
+    angleIncr = π / 6 / (ASteps),
+    zoomIncr = 0.999,
+    xIncr = angleIncr,
+    yIncr = angleIncr * 8;
 
 function timerON() {
     if (!timer) {
@@ -205,42 +212,44 @@ function timerOFF() {
 $id("right").onclick = function() {
     if (!ix) {
         xIncr = angleIncr
-        ix += animationSteps;
+        ix += ASteps;
         timerON()
     }
 }
 $id("left").onclick = function() {
     if (!ix) {
         xIncr = -angleIncr
-        ix += animationSteps;
+        ix += ASteps;
         timerON()
     }
 }
 $id("up").onclick = function() {
     if (!iy) {
         yIncr = angleIncr
-        iy += animationSteps;
+        iy += ASteps;
         timerON()
     }
 }
 $id("down").onclick = function() {
     if (!iy) {
         yIncr = -angleIncr
-        iy += animationSteps;
+        iy += ASteps;
         timerON()
     }
 }
 $id("zoomIN").onclick = function() {
     if (!izoom && zoom < maxzoom) {
         zoomIncr = 1.01
-        izoom += animationSteps;
-        timerON()
+        izoom += ASteps;
+        timerON();
+        cc("zoom izoom")
+        cc("izoom "+izoom+" : "+zoom)
     }
 }
 $id("zoomOUT").onclick = function() {
         if (!izoom && zoom > minzoom) {
             zoomIncr = 0.99
-            izoom += animationSteps;
+            izoom += ASteps;
             timerON()
         }
     }
@@ -345,7 +354,6 @@ function rotate(plane) {
         pnt._x = centerX + x1 * Scale;
         pnt._y = centerY + y1 * Scale;
     }
-
 }
 
 function draw(p) {
@@ -394,7 +402,6 @@ function drawCircle(x, y, color, radius, txt) {
     t.fillStyle = "white";
     t.fillText(txt, x - radius / 3, y + radius / 3)
     t.fillStyle = oldColor;
-
 }
 
 function drawLine(x1, y1, x2, y2, color) {
@@ -408,8 +415,9 @@ function drawLine(x1, y1, x2, y2, color) {
 }
 
 function main() {
+cc("izoom "+izoom+" zoom: "+zoom+" ix "+ix+" iy "+iy+" timer "+timer)
 
-    if ((ix === 0) && (iy === 0) && (izoom === 0)) {
+    if ((ix <= 0) && (iy <= 0) && (izoom <= 0)) {
         timerOFF()
     } else {
         if (ix) {
