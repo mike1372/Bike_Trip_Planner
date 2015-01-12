@@ -292,8 +292,8 @@ document.getElementById("go").addEventListener(
         document.getElementsByClassName("threeD-Map-output")[0].style.opacity = 1;
         // cc(Math.round( $id("threeD-Map").style.width))
         c.width = parseFloat(window.getComputedStyle($id("threeD-Map")).width, 10) - 4;
-        // where 50px = height of 3D map button panel, 20 px top/bottom spacing, 55px = height of 3D map output
-        c.height= parseFloat(window.getComputedStyle($id("threeD-Map")).height, 10) -50 -20 -55 -25;
+        // where 120px = height of 3D map button panel, 20 px top/bottom spacing, 55px = height of 3D map output
+        c.height= parseFloat(window.getComputedStyle($id("threeD-Map")).height, 10) -120 -20 -55 -25;
         centerX = c.width / 2,
         centerY = c.height / 2,
         evt.preventDefault();

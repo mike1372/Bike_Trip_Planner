@@ -15,7 +15,6 @@
  */
 /*----Mobile----*/
 
-
 html, body {
     height: 98%;
     font-family: 'Open Sans', sans-serif;
@@ -25,41 +24,59 @@ html, body {
     height: 100%;
 }
 .banner h1 {
-        width:95%;
-        color: white;
-        font-size: 3em;
-        text-align:left;
-        font-weight: bold;
-        margin: 0 5% 0.2em 0%;
-        background-color: black;
-        text-transform:uppercase;
-        padding: 0.1em 0em 0.1em 5%;
-           }
+    width: 95%;
+    color: white;
+    font-size: 3em;
+    text-align: left;
+    font-weight: bold;
+    margin: 0 5% 0.2em 0%;
+    background-color: black;
+    text-transform: uppercase;
+    padding: 0.1em 0em 0.1em 5%;
+}
 /*Input boxes*/
 
-#circle-red, #circle-green {
-    color: white;
-    padding: 1em;
+.input-boxes {
+    display: inline-block;
 }
-#circle-red {
+#red-box, #green-box {
+    width: 3em;
+    height: 4em;
+    vertical-align: top;
+    display: inline-block;
+}
+#red-box {
     background: #b30707;
 }
-#circle-green {
+#green-box {
     background: #339933;
 }
-#go, #start, #end {
-    height: 1.5em;
-    font-size: 1.5em;
-    margin-bottom: 0.5em;
-    width: calc(100% - 2em - 3px);
+#red-box h2, #green-box h2 {
+    margin: 0;
+    color: white;
+    text-align: center;
+    vertical-align: center;
+}
+#start, #end {
+    margin: 0;
+    padding: 0;
+    height: 2em;
+    font-size: 2em;
+    display: inline-block;
+    border: solid black 1px;
+    width: calc(100% - 2em + 9px);
 }
 #go {
+    border: 0;
     width: 100%;
+    height: 2em;
+    font-size: 2em;
+    margin-top: 0.25em;
 }
 /*map button & directions */
 
 #google-map-panel {
-    margin: 0% 5% 0% 5%;
+    margin: 1em 5% 1em 5%;
 }
 #google-map {
     width: 89.6%;
@@ -69,9 +86,6 @@ html, body {
     vertical-align: top;
     border: solid black 1px;
 }
-/*canvas {
-    border: 1px red solid;
-}*/
 /*canvas map transformation*/
 /*canvas buttons*/
 
@@ -89,7 +103,7 @@ button .buttonArrows {
     border: solid black 1px;
 }
 #threeD-Map button.buttonArrows {
-    font-size: 2em;
+    font-size: 3em;
 }
 .threeD-Map-button-panel {
     width: 90%;
@@ -104,7 +118,7 @@ button .buttonArrows {
     height: 55px;
     margin: 0% 0% 0% 5%;
 }
-.col1, .col2, .col3  {
+.col1, .col2, .col3 {
     width: 32%;
     text-align: center;
     display: inline-block;
@@ -112,6 +126,7 @@ button .buttonArrows {
 .canvas-data {
     text-align: right;
 }
+
 /*----Desktop----*/
 
 @media all and (min-width: 1000px) {
@@ -122,12 +137,25 @@ button .buttonArrows {
     
     .start-end {
         width: 85%;
+        height: 100%;
         display: inline-block;
     }
-    #go {
-        width: 13%;
+    #red-box, #green-box {
         height: 4em;
-        margin-left: auto;
+    }
+    #red-box {
+        margin-bottom: 1px;
+    }
+    #green-box {
+        margin-top: 1px;
+    }
+    #A, #B {
+        height: 2em%;
+    }
+    #go {
+        height: calc(4em + 4px);
+        width: 13%;
+        margin: 0;
         vertical-align: top;
         display: inline-block;
     }
@@ -137,9 +165,6 @@ button .buttonArrows {
     button .buttonArrows {
         width: 4em;
         height: 2em;
-    }
-    #google-map-panel {
-        margin: 0% 5% 0% 5%;
     }
     #google-map {
         width: 42%;
@@ -156,11 +181,14 @@ button .buttonArrows {
     .threeD-Map-button-panel {
         width: 80%;
     }
+    #threeD-Map button.buttonArrows {
+        font-size: 2em;
+    }
     .outputs {
         width: 24%;
         display: inline-block;
     }
-    .col1, .col2, .col3   {
+    .col1, .col2, .col3 {
         width: 100%;
         text-align: center;
         display: inline-block;

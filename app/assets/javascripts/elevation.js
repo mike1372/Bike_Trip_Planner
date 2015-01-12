@@ -117,11 +117,14 @@ function slopeColor(slope) {
             case (slope > 12):
                 pathColor = "black";
                 break;
+            case (slope > 10):
+                pathColor = "dimgray";
+                break; 
             case (slope > 8):
-                pathColor = "red";
+                pathColor = "saddlebrown";
                 break;
             case (slope > 6):
-                pathColor = "#FF4719";
+                pathColor = "red";
                 break;
             case (slope > 4):
                 pathColor = "orange";
@@ -130,16 +133,11 @@ function slopeColor(slope) {
                 pathColor = "yellow";
                 break;
             case (slope > 0):
-                pathColor = "lightgreen";
-                break;
-            case (slope > -4):
-                pathColor = "#EBFAFF";
-                break;
-            case (slope > -8):
-                pathColor = "#C2F0FF";
+                pathColor = "chartreuse";
                 break;
             default:
-                pathColor = "#5CD6FF";
+                //all down hill slopes
+                pathColor = "lightskyblue";
         }
         return pathColor
     }
