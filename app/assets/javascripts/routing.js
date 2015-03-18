@@ -60,6 +60,7 @@ var initialize = function() {
 
 var setWayPoints = function(dbRouteData) {
     cc("dbRouteData: " + dbRouteData);
+    wayPointsArray=[];
     if (dbRouteData === []) {
         // leave wayPointsArray = [] to run google routing to obtain the start and end coordinates
         cc("len " + dbRouteData.length);
