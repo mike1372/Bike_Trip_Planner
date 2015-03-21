@@ -84,7 +84,7 @@ var setWayPoints = function(dbRouteData) {
 }
 
 var calcRoute = function(wayPointsArray) {
-
+    // reset waypoints array to empty before each use
     var start = document.getElementById('start').value + ", Victoria, Australia";
     var end = document.getElementById('end').value + ", Victoria, Australia";
     cc('end value: ' + end)
@@ -288,7 +288,6 @@ var getURLParameter = function(name) {
 document.getElementById("go").addEventListener(
     'click',
     function(evt) {
-        // cc("errrrrr")
         document.getElementsByClassName("threeD-Map-button-panel")[0].style.opacity = 1; 
         document.getElementsByClassName("threeD-Map-output")[0].style.opacity = 1;
         // cc(Math.round( $id("threeD-Map").style.width))
@@ -298,9 +297,11 @@ document.getElementById("go").addEventListener(
         centerX = c.width / 2,
         centerY = c.height / 2,
         evt.preventDefault();
-        
+        removePolylines();
         calcRoute(wayPointsArray);
-        cc("zoom")
-        cc(zoom)
+        cc("WAYPOINTS")
+        cc(wayPointsArray);
+        // cc("zoom")
+        // cc(zoom)
 
     });
