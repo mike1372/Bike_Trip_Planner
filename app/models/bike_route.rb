@@ -12,7 +12,9 @@ class BikeRoute < ActiveRecord::Base
 		current_long = start_long
 		# Retrieve all points in range of the origin and destination coordinates
 		points_in_range = get_points_in_range(start_lat, start_long, end_lat, end_long)
-
+		# Array to store the final route result, add the origin to it to begin with
+		route = [[start_lat, start_long]]
+		
 		# Main loop
 		while true
 
