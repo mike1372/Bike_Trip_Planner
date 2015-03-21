@@ -297,7 +297,9 @@ document.getElementById("go").addEventListener(
         centerX = c.width / 2,
         centerY = c.height / 2,
         evt.preventDefault();
+        
         removePolylines();
+        wayPointsArray = [];
         calcRoute(wayPointsArray);
         cc("WAYPOINTS")
         cc(wayPointsArray);
