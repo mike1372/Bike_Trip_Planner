@@ -299,6 +299,7 @@ document.getElementById("go").addEventListener(
         centerY = c.height / 2,
         evt.preventDefault();
         
+        wayPointsArray = [];
         calcRoute(wayPointsArray);
         cc("zoom")
         cc(zoom)
