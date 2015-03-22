@@ -59,25 +59,25 @@ var initialize = function() {
 }
 
 var setWayPoints = function(dbRouteData) {
-    cc("dbRouteData: " + dbRouteData);
-    wayPointsArray=[];
+    // cc("dbRouteData: " + dbRouteData);
+    wayPointsArray = [];
     if (dbRouteData === []) {
         // leave wayPointsArray = [] to run google routing to obtain the start and end coordinates
-        cc("len " + dbRouteData.length);
+        // cc("len " + dbRouteData.length);
     } else {
 
         if (dbRouteData.length === 2) {
             // return wayPointsArray = []; as previously defined
         } else if (dbRouteData.length > 2) {
-            cc(dbRouteData.length)
+            // cc(dbRouteData.length)
             for (i = 1; i < (dbRouteData.length) - 1; i++) {
                 wayPointsArray.push({
                     location: new google.maps.LatLng(dbRouteData[i][0], dbRouteData[i][1]),
                     stopover: false
                 })
             }
-            cc("setwaypoints-wayPointsArray");
-            cc(wayPointsArray);
+            // cc("setwaypoints-wayPointsArray");
+            // cc(wayPointsArray);
             calcRoute(wayPointsArray);
         }
     }
@@ -104,10 +104,10 @@ var calcRoute = function(wayPointsArray) {
             dirRenderer.setDirections(response);
             googleResponse = response;
             if (wayPointsArray.length > 0) {
-                cc("true")
+                // cc("true")
                 updateRoutes();
             } else {
-                cc("false")
+                // cc("false")
                 getRoute();
             }
         }
@@ -146,12 +146,12 @@ google.maps.event.addDomListener(window, 'load', initialize);
 var updating = false;
 
 var updateRoutes = function() {
+    // cc("UPDATE ROUTES")
     if (updating) return;
     updating = true;
     setTimeout(function() {
         updating = false;
     }, 100);
-    cc("Updating routes");
 
     // if (typeof googleResponse = 'undefined') {
 
@@ -173,113 +173,6 @@ var updateRoutes = function() {
     elevation_data.getElevationAlongPath(pathRequest, plotElevation);
 }
 
-// Google returns elevation data to the plotElevation
-var plotElevation = function(elevations, status) {
-    plotSlope(elevations, SAMPLESIZE);
-}
-
-var plotSlope = function(elevations, SAMPLESIZE) {
-    slopes = [];
-    for (i = 0; i < elevations.length - 1; i++) {
-        slope = (calcSlope(elevations[i + 1].elevation, elevations[i].elevation, distance.value / SAMPLESIZE)) * 100;
-        slopes.push({
-            slope: slope,
-            location: midpoint(elevations[i], elevations[i + 1])
-        });
-    }
-
-    drawPolyline(elevations, slopes);
-
-    //-------injected:
-    var data8 = gMaps3array(elevations, distance.value / SAMPLESIZE)
-    cc("data8:")
-    cc(data8)
-    planes = [createGrid(fnPlane), createSlope(normalize(data8))]
-
-    // totalθ = 0,
-    //     totalφ = 0,
-    //     targetAngleUP = π * 7 / 6,
-
-    //     targetAngle = 0,
-    //     zoom = 0.5,
-    //     zoomTarget = 1.6,
-
-        timer = setInterval(main, 0);
-    cc("elevations, SAMPLESIZE:");
-    cc(elevations, SAMPLESIZE);
-    //end inject
-}
-
-var removePolylines = function() {
-    for (var i = 0; i < mapPaths.length; i++) {
-        mapPaths[i].setMap(null);
-    }
-    mapPaths = [];
-}
-
-var drawPolyline = function(elevations, slopes) {
-    // Create a polyline between each elevation, color code by slope.
-    // Remove any existing polylines before drawing a new polyline.
-    removePolylines();
-
-    // Define /reset upHill, downHill
-    var upHill = 0;
-    var downHill = 0;
-
-    for (var i = 0; i < slopes.length; i++) {
-        var routePath = [
-            elevations[i].location,
-            elevations[i + 1].location
-        ];
-
-        var slope = slopes[i].slope;
-        var current = elevations[i].elevation
-        var next = elevations[i + 1].elevation;
-        if (slope > 0) {
-            upHill += next - current;
-        } else {
-            downHill += current - next;
-        }
-        pathColor = slopeColor(slope)
-        mapPath = new google.maps.Polyline({
-            path: routePath,
-            strokeColor: pathColor,
-            strokeOpacity: 0.5,
-            strokeWeight: 8,
-            draggable: true
-        });
-        mapPath.setMap(map);
-        mapPaths.push(mapPath);
-    }
-    // cc(elevations);
-    document.getElementById('climb').innerHTML = parseFloat(upHill).toFixed(2) + " m";;
-    document.getElementById('descent').innerHTML = parseFloat(downHill).toFixed(2) + " m";;
-
-    // set dbRouteData = []
-    // dbRouteData = [];
-    cc("dbRouteData", dbRouteData)
-
-    // update paths onClick.
-    google.maps.event.addListener(dirRenderer, 'routeindex_changed', function() {
-        updateRoutes();
-    });
-}
-
-var elevationClear = function(x) {
-    map.locationMarker.setMap(null);
-}
-
-var midpoint = function(point1, point2) {
-    // To get the midpoint, find the average between each respective point
-    var lat = (point1.location.lat() + point2.location.lat()) / 2;
-    var lng = (point1.location.lng() + point2.location.lng()) / 2;
-    return new google.maps.LatLng(lat, lng);
-}
-
-var calcSlope = function(y1, y2, dx) {
-    return (y1 - y2) / dx;
-}
-
 var getURLParameter = function(name) {
     return decodeURIComponent((RegExp(name + '=' + '(.+?)(&|$)')
         .exec(location.search) || [, null])[1]);
@@ -288,22 +181,37 @@ var getURLParameter = function(name) {
 document.getElementById("go").addEventListener(
     'click',
     function(evt) {
-        document.getElementsByClassName("threeD-Map-button-panel")[0].style.opacity = 1; 
+        document.getElementsByClassName("threeD-Map-button-panel")[0].style.opacity = 1;
         document.getElementsByClassName("threeD-Map-output")[0].style.opacity = 1;
-        // cc(Math.round( $id("threeD-Map").style.width))
         c.width = parseFloat(window.getComputedStyle($id("threeD-Map")).width, 10) - 4;
         // where 60px = height of 3D map button panel, 20 px top/bottom spacing, 55px = height of 3D map output
-        c.height= parseFloat(window.getComputedStyle($id("threeD-Map")).height, 10) -60 -20 -55 -25;
+        c.height = parseFloat(window.getComputedStyle($id("threeD-Map")).height, 10) - 60 - 20 - 55 - 25;
         centerX = c.width / 2,
-        centerY = c.height / 2,
-        evt.preventDefault();
-        
-        removePolylines();
+            centerY = c.height / 2,
+            evt.preventDefault();
+
+        // removePolylines();
         wayPointsArray = [];
+        // cc("WAYPOINTS")
+        // cc(wayPointsArray);
         calcRoute(wayPointsArray);
-        cc("WAYPOINTS")
-        cc(wayPointsArray);
-        // cc("zoom")
-        // cc(zoom)
 
     });
+
+
+// var jQuery = function setup() {
+//     var a, b, c
+//     var d = function() {
+//         return a
+//     }
+//     return {
+//         func: d,
+//         v: a
+//     }
+
+
+// }
+
+// jQuery = setup()
+// jQuery.func()
+// jQuery.v
