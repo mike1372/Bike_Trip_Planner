@@ -14,7 +14,7 @@ class BikeRoute < ActiveRecord::Base
 		points_in_range = get_points_in_range(start_lat, start_long, end_lat, end_long)
 		# Array to store the final route result, add the origin to it to begin with
 		route = [[start_lat, start_long]]
-		
+
 		# Main loop
 		while true
 
@@ -22,7 +22,7 @@ class BikeRoute < ActiveRecord::Base
 
 			# Scan the returned mid points for the closest mid point, store in closest latlong variables
 			if points_in_range != []
-				$closest_distance = distance_to(points_in_range.first[0], points_in_range.first[1], current_lat, current_long)
+				$closest_distance = distance_to(points_in_range.first[0], points_in_range.first[1], start_lat, start_long)
 				closest_lat = points_in_range.first[0]
 				closest_long = points_in_range.first[1]
 				logger.info 'finding closest entry point'
