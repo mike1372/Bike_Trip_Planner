@@ -59,7 +59,9 @@ var initialize = function() {
 }
 
 var setWayPoints = function(dbRouteData) {
+    // cc("+++++++++++++++++++++++++++++")
     // cc("dbRouteData: " + dbRouteData);
+    // cc("+++++++++++++++++++++++++++++")
     wayPointsArray = [];
     if (dbRouteData === []) {
         // leave wayPointsArray = [] to run google routing to obtain the start and end coordinates
@@ -70,6 +72,11 @@ var setWayPoints = function(dbRouteData) {
             // return wayPointsArray = []; as previously defined
         } else if (dbRouteData.length > 2) {
             // cc(dbRouteData.length)
+
+            // quick fix to stay under google waypoint limit of 8
+            if (dbRouteData.length > 8) {
+            	dbRouteData = dbRouteData.slice(0,7);
+            } 
             for (i = 1; i < (dbRouteData.length) - 1; i++) {
                 wayPointsArray.push({
                     location: new google.maps.LatLng(dbRouteData[i][0], dbRouteData[i][1]),
@@ -77,7 +84,9 @@ var setWayPoints = function(dbRouteData) {
                 })
             }
             // cc("setwaypoints-wayPointsArray");
-            // cc(wayPointsArray);
+            cc("+++++++++++++++++++++++++++++")
+            cc(wayPointsArray);
+            cc("+++++++++++++++++++++++++++++")
             calcRoute(wayPointsArray);
         }
     }
@@ -87,7 +96,7 @@ var calcRoute = function(wayPointsArray) {
     // reset waypoints array to empty before each use
     var start = document.getElementById('start').value + ", Victoria, Australia";
     var end = document.getElementById('end').value + ", Victoria, Australia";
-    cc('end value: ' + end)
+    // cc('end value: ' + end)
     var request = {
         origin: start,
         destination: end,
@@ -103,6 +112,9 @@ var calcRoute = function(wayPointsArray) {
         if (status === "OK") {
             dirRenderer.setDirections(response);
             googleResponse = response;
+            cc("****************")
+            cc(wayPointsArray);
+            cc("****************")
             if (wayPointsArray.length > 0) {
                 // cc("true")
                 updateRoutes();
@@ -133,7 +145,9 @@ var getRoute = function() {
                 end_long: endlong,
             }
         }).done(function(dbRouteData) {
-            cc("fetchBikeRoute-dbRouteData", dbRouteData);
+            // cc("fetchBikeRoute-dbRouteData");
+            // cc(dbRouteData);
+            // cc("----------------------------");
             setWayPoints(dbRouteData);
         });
     };
